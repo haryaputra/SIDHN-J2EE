@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <META HTTP-EQUIV="refresh" CONTENT="15"></META>
+            <ui:composition template="./template/template.xhtml">
+                <ui:define name="menu">
+
+            </ui:define>
+
+            <ui:define name="content">  
+                <h:form id="form">
+                    <p:panel id ="panel" header="Please Login" >
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+                        <p:panelGrid  columns="2" styleClass="noBorders" >
+                            <h:outputText value="User Id:"/>
+                            <p:inputText id="UserId" label="UserId" style="width: 98%"
+                                         required="true" value="#{indexController.userId}"/>
+                            <h:outputText value="Password:" />
+                            <p:password id="Password" label="Password" style="width: 98%"
+                                        required="true" value="#{indexController.password}" />
+                        </p:panelGrid>
+                        <p:commandButton value="Login" ajax="false"
+                                         action="#{indexController.Login(event)}"
+                                         styleClass="customBtn"
+                                         />
+                        <p:watermark for="Password" value="Masukan Password"></p:watermark>
+                        <p:watermark for="UserId" value="Masukan User Id"></p:watermark>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+        
+    </body>
+
+
+
+
+</html>
+

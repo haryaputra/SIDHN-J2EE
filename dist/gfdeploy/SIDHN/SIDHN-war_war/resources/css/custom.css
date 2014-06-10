@@ -1,0 +1,26 @@
+/* 
+    Document   : custom
+    Created on : Sep 5, 2013, 3:34:10 PM
+    Author     : idabagus
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.noBorders tr, .noBorders td {
+    background-color: #f8f8f8 !important;
+    border-style: none !important;
+}
+
+.customBtn {
+	width: auto !important;
+	overflow: visible !important;
+	border: 0 !important;
+	background: #467aa7 url(../img/image_.jpg) repeat-x 0 -30px !important;
+	padding: 2px 4px !important;
+	cursor: pointer !important;
+	color: #fff !important;
+	text-decoration: none !important;
+	font-weight: bold !important;
+	}
+        
+.customBtn:hover { background-color: #ccc !important; color: #333 !important; }

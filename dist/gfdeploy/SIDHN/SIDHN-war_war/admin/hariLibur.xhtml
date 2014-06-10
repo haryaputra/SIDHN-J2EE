@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />
+                <h:form id="form">
+                    <p:tabMenu activeIndex="3">
+                        <p:menuitem value="Periode DHIB" url="periodeDHIB.jsf" />
+                        <p:menuitem value="Parameter DHB" url="parameterDHB.jsf" />
+                        <p:menuitem value="Interface Sistem" url="interfaceSistem.jsf" />
+                        <p:menuitem value="Hari Libur" url="hariLibur.jsf" />
+                    </p:tabMenu>
+                    <p:panel id ="panel" >
+
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" escape="false" />
+
+                        <p:watermark for="ketlbr" value="Required"></p:watermark>
+
+                        <p:panelGrid  columns="2" styleClass="noBorders" >
+                            <h:outputText value="Tgl Libur:"/>
+                            <p:calendar value="#{hariLiburController.hariLibur.tanggal}" id="popupButtonCal" navigator="true" />
+
+                            <h:outputText value="Keterangan:"/>
+                            <p:inputText id="ketlbr" label="ketlbr"
+                                         required="true" value="#{hariLiburController.hariLibur.keterangan}">
+                            </p:inputText>
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" styleClass="noBorders" >
+                            <p:commandButton id="changeBtn" value="Add" update="dataTable" ajax="false"
+                                             action="#{hariLiburController.CreateHariLibur(event)}"
+                                             styleClass="customBtn" />
+                        </p:panelGrid>
+
+                        <p:dataTable id="dataTable" var="lbr"  value="#{hariLiburController.hariLiburByYear}"
+                                     rowKey="#{lbr.tanggal}" selection="#{hariLiburController.selectedHariLibur}"
+                                     >
+                            <f:facet name="header">
+                                Daftar Hari Libur
+                            </f:facet> 
+
+                            <p:ajax event="rowSelect" listener="#{hariLiburController.onRowSelect}" />
+                            <p:ajax event="rowUnselect" listener="#{hariLiburController.onRowUnselect}" />
+                            <p:ajax event="rowSelectCheckbox" listener="#{hariLiburController.onRowSelect}" />
+                            <p:ajax event="rowUnselectCheckbox" listener="#{hariLiburController.onRowUnselect}" />
+                            <p:ajax event="toggleSelect" listener="#{hariLiburController.onToggleCheckbox}" />
+                            <p:column selectionMode="multiple" style="width:2%" />
+
+                            <p:column headerText="Tgl Libur" style="width: 49%">
+                                <h:outputText value="#{lbr.tanggal}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Keterangan" style="width: 49%" >
+                                #{lbr.keterangan}
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:panelGrid columns="1" styleClass="noBorders">
+                            <p:commandButton id="multiDelButton" value="Delete" onclick="confirmation.show();" type="button" /> 
+
+                            <p:confirmDialog  message="Are you sure?" header="Confirmation" severity="alert" widgetVar="confirmation">
+                                <p:commandButton value="Yes" update="dataTable" oncomplete="confirmation.hide()" process="@this"
+                                                 actionListener="#{hariLiburController.DeleteSelectedHariLibur(event)}" />
+                                <p:commandButton value="No" onclick="confirmation.hide();" type="button" />
+                            </p:confirmDialog>
+                        </p:panelGrid>
+
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

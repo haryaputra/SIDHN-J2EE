@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDhnEditDlg" widgetVar="TDhnEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTDhnTitle}">
+            <h:form id="TDhnEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDhnController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_TDhnPK_noUrut}" for="TDhnPK_noUrut" />
+                        <p:inputText id="TDhnPK_noUrut" value="#{tDhnController.selected.TDhnPK.noUrut}" title="#{bundle.EditTDhnTitle_TDhnPK_noUrut}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_TDhnPK_noUrut}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_TDhnPK_nomorDh}" for="TDhnPK_nomorDh" />
+                        <p:inputText id="TDhnPK_nomorDh" value="#{tDhnController.selected.TDhnPK.nomorDh}" title="#{bundle.EditTDhnTitle_TDhnPK_nomorDh}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_TDhnPK_nomorDh}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_nomorReferensi}" for="nomorReferensi" />
+                        <p:inputText id="nomorReferensi" value="#{tDhnController.selected.nomorReferensi}" title="#{bundle.EditTDhnTitle_nomorReferensi}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_nomorReferensi}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_rekening}" for="rekening" />
+                        <p:inputText id="rekening" value="#{tDhnController.selected.rekening}" title="#{bundle.EditTDhnTitle_rekening}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_sandiKantorBank}" for="sandiKantorBank" />
+                        <p:inputText id="sandiKantorBank" value="#{tDhnController.selected.sandiKantorBank}" title="#{bundle.EditTDhnTitle_sandiKantorBank}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_sandiKantorBank}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_sandiInstitusiBank}" for="sandiInstitusiBank" />
+                        <p:inputText id="sandiInstitusiBank" value="#{tDhnController.selected.sandiInstitusiBank}" title="#{bundle.EditTDhnTitle_sandiInstitusiBank}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_sandiInstitusiBank}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_namaBank}" for="namaBank" />
+                        <p:inputText id="namaBank" value="#{tDhnController.selected.namaBank}" title="#{bundle.EditTDhnTitle_namaBank}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_namaBank}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_namaNasabah}" for="namaNasabah" />
+                        <p:inputText id="namaNasabah" value="#{tDhnController.selected.namaNasabah}" title="#{bundle.EditTDhnTitle_namaNasabah}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_namaNasabah}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_gelarJenisusaha}" for="gelarJenisusaha" />
+                        <p:inputText id="gelarJenisusaha" value="#{tDhnController.selected.gelarJenisusaha}" title="#{bundle.EditTDhnTitle_gelarJenisusaha}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_sandiJenisNasabah}" for="sandiJenisNasabah" />
+                        <p:inputText id="sandiJenisNasabah" value="#{tDhnController.selected.sandiJenisNasabah}" title="#{bundle.EditTDhnTitle_sandiJenisNasabah}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_sandiJenisNasabah}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_noIdentitas}" for="noIdentitas" />
+                        <p:inputText id="noIdentitas" value="#{tDhnController.selected.noIdentitas}" title="#{bundle.EditTDhnTitle_noIdentitas}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_noIdentitas}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_npwp}" for="npwp" />
+                        <p:inputText id="npwp" value="#{tDhnController.selected.npwp}" title="#{bundle.EditTDhnTitle_npwp}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_tanggalLahir}" for="tanggalLahir" />
+                        <p:calendar id="tanggalLahir" pattern="MM/dd/yyyy HH:mm:ss" value="#{tDhnController.selected.tanggalLahir}" title="#{bundle.EditTDhnTitle_tanggalLahir}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_tanggalLahir}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatJalan}" for="alamatJalan" />
+                        <p:inputText id="alamatJalan" value="#{tDhnController.selected.alamatJalan}" title="#{bundle.EditTDhnTitle_alamatJalan}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_alamatJalan}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatRt}" for="alamatRt" />
+                        <p:inputText id="alamatRt" value="#{tDhnController.selected.alamatRt}" title="#{bundle.EditTDhnTitle_alamatRt}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatRw}" for="alamatRw" />
+                        <p:inputText id="alamatRw" value="#{tDhnController.selected.alamatRw}" title="#{bundle.EditTDhnTitle_alamatRw}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatKota}" for="alamatKota" />
+                        <p:inputText id="alamatKota" value="#{tDhnController.selected.alamatKota}" title="#{bundle.EditTDhnTitle_alamatKota}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_alamatKota}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatPropinsi}" for="alamatPropinsi" />
+                        <p:inputText id="alamatPropinsi" value="#{tDhnController.selected.alamatPropinsi}" title="#{bundle.EditTDhnTitle_alamatPropinsi}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_alamatPropinsi}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_alamatKodepos}" for="alamatKodepos" />
+                        <p:inputText id="alamatKodepos" value="#{tDhnController.selected.alamatKodepos}" title="#{bundle.EditTDhnTitle_alamatKodepos}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_keterangan}" for="keterangan" />
+                        <p:inputText id="keterangan" value="#{tDhnController.selected.keterangan}" title="#{bundle.EditTDhnTitle_keterangan}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_keterangan}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_expiredDh}" for="expiredDh" />
+                        <p:calendar id="expiredDh" pattern="MM/dd/yyyy HH:mm:ss" value="#{tDhnController.selected.expiredDh}" title="#{bundle.EditTDhnTitle_expiredDh}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_flagStatus}" for="flagStatus" />
+                        <p:inputText id="flagStatus" value="#{tDhnController.selected.flagStatus}" title="#{bundle.EditTDhnTitle_flagStatus}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_flagStatus}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_createdDate}" for="createdDate" />
+                        <p:calendar id="createdDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{tDhnController.selected.createdDate}" title="#{bundle.EditTDhnTitle_createdDate}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_createdDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_createdBy}" for="createdBy" />
+                        <p:inputText id="createdBy" value="#{tDhnController.selected.createdBy}" title="#{bundle.EditTDhnTitle_createdBy}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_createdBy}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_lastUpdated}" for="lastUpdated" />
+                        <p:calendar id="lastUpdated" pattern="MM/dd/yyyy HH:mm:ss" value="#{tDhnController.selected.lastUpdated}" title="#{bundle.EditTDhnTitle_lastUpdated}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_lastUpdated}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_updatedBy}" for="updatedBy" />
+                        <p:inputText id="updatedBy" value="#{tDhnController.selected.updatedBy}" title="#{bundle.EditTDhnTitle_updatedBy}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_updatedBy}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_cancelDate}" for="cancelDate" />
+                        <p:calendar id="cancelDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{tDhnController.selected.cancelDate}" title="#{bundle.EditTDhnTitle_cancelDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_cancelBy}" for="cancelBy" />
+                        <p:inputText id="cancelBy" value="#{tDhnController.selected.cancelBy}" title="#{bundle.EditTDhnTitle_cancelBy}" />
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_flagAccess}" for="flagAccess" />
+                        <p:inputText id="flagAccess" value="#{tDhnController.selected.flagAccess}" title="#{bundle.EditTDhnTitle_flagAccess}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_flagAccess}"/>
+                        <p:outputLabel value="#{bundle.EditTDhnLabel_dhibId}" for="dhibId" />
+                        <p:inputText id="dhibId" value="#{tDhnController.selected.dhibId}" title="#{bundle.EditTDhnTitle_dhibId}" required="true" requiredMessage="#{bundle.EditTDhnRequiredMessage_dhibId}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tDhnController.update}" value="#{bundle.Save}" update="display,:TDhnListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TDhnEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TDhnEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />
+                <h:form id="form">
+                    <p:tabMenu activeIndex="0">  
+                        <p:menuitem value="Periode DHIB" url="periodeDHIB.jsf" />  
+                        <p:menuitem value="Parameter DHB" url="parameterDHB.jsf" />  
+                        <p:menuitem value="Interface Sistem" url="interfaceSistem.jsf" />  
+                        <p:menuitem value="Hari Libur" url="hariLibur.jsf" />   
+                    </p:tabMenu>
+                    <p:panel id ="panel" >
+
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" escape="false" /> 
+                        
+                        <p:panelGrid  columns="4" styleClass="noBorders" >                            
+                            <h:outputText value="Tgl Awal Pengumpulan Periode I:"/>
+                            <p:inputText id="awlk1" label="awlk1" 
+                                         required="true" value="#{parameterController.startCollectP1.paramValue}">
+                            </p:inputText>    
+                            
+                            <h:outputText value="Tgl Akhir Pengumpulan Periode I:"/>
+                            <p:inputText id="ahrk1" label="ahrk1" 
+                                         required="true" value="#{parameterController.endCollectP1.paramValue}">
+                            </p:inputText>  
+                            
+                            <h:outputText value="Tgl Awal Pelaporan Periode I:"/>
+                            <p:inputText id="awll1" label="awll1" 
+                                         required="true" value="#{parameterController.startReportP1.paramValue}">
+                            </p:inputText>
+                            
+                            <h:outputText value="Tgl Akhir Pelaporan Periode I:"/>
+                            <p:inputText id="ahrl1" label="ahrl1" 
+                                         required="true" value="#{parameterController.endReportP1.paramValue}">
+                            </p:inputText>
+                            
+                            <h:outputText value="Tgl Awal Pengumpulan Periode II:"/>
+                            <p:inputText id="awlk2" label="awlk2" 
+                                         required="true" value="#{parameterController.startCollectP2.paramValue}">
+                            </p:inputText>    
+                            
+                            <h:outputText value="Tgl Akhir Pengumpulan Periode II:"/>
+                            <p:inputText id="ahrk2" label="ahrk2" 
+                                         required="true" value="#{parameterController.endCollectP2.paramValue}">
+                            </p:inputText>  
+                            
+                            <h:outputText value="Tgl Awal Pelaporan Periode II:"/>
+                            <p:inputText id="awll2" label="awll2" 
+                                         required="true" value="#{parameterController.startReportP2.paramValue}">
+                            </p:inputText>
+                            
+                            <h:outputText value="Tgl Akhir Pelaporan Periode II:"/>
+                            <p:inputText id="ahrl2" label="ahrl2" 
+                                         required="true" value="#{parameterController.endReportP2.paramValue}">
+                            </p:inputText>
+                        </p:panelGrid>
+                        <p:commandButton id="updBtn" value="Update" update="form" ajax="false"
+                                         action="#{parameterController.UpdatePeriodeDHIB(event)}"
+                                         styleClass="customBtn" />                                            
+                    </p:panel>  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

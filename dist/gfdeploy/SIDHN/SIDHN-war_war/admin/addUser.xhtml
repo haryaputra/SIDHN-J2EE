@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />
+                <h:form id="form">       
+                    <p:panel id ="panel" header="Create User" >
+
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+
+                        <p:watermark for="Username" value="Required"></p:watermark>
+                        <p:watermark for="namaLengkap" value="Required"></p:watermark>  
+                        <p:watermark for="deskripsi" value="Optional"></p:watermark> 
+
+                        <p:panelGrid  columns="2" styleClass="noBorders" >
+                            <h:outputText value="Username:"/>
+                            <p:inputText id="Username" label="Username" 
+                                         required="true" value="#{userController.username}"
+                                         disabled="#{userController.inputcek}">
+                                <f:validateLength maximum="12" />
+                            </p:inputText>
+
+                            <h:outputText value="Nama Lengkap:"/>
+                            <p:inputText id="namaLengkap" label="namaLengkap"
+                                         required="true" value="#{userController.namaLengkap}">
+                                <f:validateLength maximum="20" />
+                            </p:inputText>
+
+                            <h:outputText value="Deskripsi:"/>
+                            <p:inputText id="deskripsi" label="deskripsi"
+                                         required="false" value="#{userController.deskripsi}">
+                                <f:validateLength maximum="30" />
+                            </p:inputText>
+
+                            <h:outputText value="User Role:"/>
+                            <p:selectOneMenu id="userRole" label="userRole"
+                                             required="true" value="#{userController.userRole}">
+                                <f:selectItem itemLabel="Select User Role" itemValue="" />
+                                <f:selectItems value="#{userController.allUserRoles}" var="ur"
+                                               itemLabel="#{ur.roleName}" itemValue="#{ur.roleId}" />
+                                <p:ajax update="namaInstitusi"  
+                                        listener="#{userController.getRelatedInstitusiBank}" />
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Akses List:"/>
+                            <p:selectOneMenu id="aksesLits" label="aksesList" value="#{userController.aksesList}">   
+                                <f:selectItem itemLabel="Send View" itemValue='SV' />  
+                                <f:selectItem itemLabel="View Only" itemValue='VO' />  
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Nama Institusi:"/>
+                            <p:selectOneMenu id="namaInstitusi" label="namaInstitusi"
+                                             required="true" value="#{userController.namaInstitusi}" >
+                                <f:selectItem itemLabel="Select Institusi" itemValue="" />
+                                <f:selectItems value="#{userController.relatedBanks}" var="rb"
+                                               itemLabel="#{rb.sandiInstitusiBank} - #{rb.namaSingkat}" itemValue="#{rb.sandiInstitusiBank}"  />
+                                <p:ajax update="kantorBank"  
+                                        listener="#{userController.getRelatedKantorBank}" />
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Kantor Bank:"/>
+                            <p:selectOneMenu id="kantorBank" label="kantorBank"
+                                             required="true" value="#{userController.kantorBank}" >
+                                <f:selectItem itemLabel="Select  Kantor Bank" itemValue="" />
+                                <f:selectItems value="#{userController.relatedKantorBanks}" var="rkb"
+                                               itemLabel="#{rkb.sandiKantorBank} - #{rkb.namaKantor}" itemValue="#{rkb.sandiKantorBank}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+
+                        <p:commandButton value="Check Username" process="@this,Username"                     
+                                         styleClass="customBtn" update="saveBtn Username"
+                                         actionListener="#{userController.checkUsername}" />
+                        <p:commandButton id="saveBtn" value="Save" process="@this,@form"
+                                         actionListener="#{userController.Save}" update="form"
+                                         styleClass="customBtn" disabled="#{userController.exist}" />
+
+                        <p:dialog header="User Info" widgetVar="userDialog" resizable="false" modal="true"
+                                  showEffect="explode" hideEffect="explode" > 
+                            <p:messages id="messages1" showDetail="false" autoUpdate="true" closable="true" />
+                            <h:panelGrid id="display" columns="4" cellpadding="4">  
+                                <h:outputText value="UserId:" />  
+                                <h:outputText value="#{userController.user.userId}" />  
+
+                                <h:outputText value="Password:" />  
+                                <h:outputText value="#{userController.passwordBaru}" />  
+
+                                <h:outputText value="Nama:" />  
+                                <h:outputText value="#{userController.user.fullName}" />  
+
+                                <h:outputText value="Deskripsi:" />  
+                                <h:outputText value="#{userController.user.deskripsi}" />  
+
+                                <h:outputText value="Bank:" />  
+                                <h:outputText value="#{userController.user.sandiBank.namaSingkat}" />  
+
+                                <h:outputText value="Sandi Institusi:" />  
+                                <h:outputText value="#{userController.user.sandiInstitusiBank.sandiInstitusiBank}" />  
+
+                                <h:outputText value="Sandi Kantor:" />  
+                                <h:outputText value="#{userController.user.sandiKliring.sandiStatusKantor}" />  
+
+                                <h:outputText value="Berlaku:" />  
+                                <h:outputText value="#{userController.user.expiredDate}" >
+                                    <f:convertDateTime pattern="dd-MMM-yyyy" />
+                                </h:outputText>                            
+                            </h:panelGrid>  
+                            <h:outputText value="Ini adalah username/pasword anda untuk dapat masuk ke SIDHN.&lt;br/&gt;" escape="false"/>
+                            <h:outputText value="Segera lakukan penggantian password." />
+                        </p:dialog>
+
+                    </p:panel>                    
+                </h:form>                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

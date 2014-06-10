@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />
+                <h:form id="form">
+                    <p:tabMenu activeIndex="2">  
+                        <p:menuitem value="Periode DHIB" url="periodeDHIB.jsf" />  
+                        <p:menuitem value="Parameter DHB" url="parameterDHB.jsf" />  
+                        <p:menuitem value="Interface Sistem" url="interfaceSistem.jsf" />  
+                        <p:menuitem value="Hari Libur" url="hariLibur.jsf" />   
+                    </p:tabMenu>
+                    <p:panel id ="panel" >
+
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" escape="false" /> 
+
+                        <p:panelGrid  columns="2" styleClass="noBorders" >                            
+                            <h:outputText value="IP Address RTGS:"/>
+                            <p:inputText id="iprtgs" label="iprtgs" 
+                                         required="true" value="#{parameterController.IPAddressRTGS.paramValue}">
+                            </p:inputText>    
+
+                            <h:outputText value="Username Interface RTGS:"/>
+                            <p:inputText id="usrrtgs" label="usrrtgs" 
+                                         required="true" value="#{parameterController.usernameRTGS.paramValue}">
+                            </p:inputText>  
+
+                            <h:outputText value="Password Interface RTGS:"/>
+                            <p:password id="passrtgs" label="passrtgs" redisplay="true"
+                                        required="true" value="#{parameterController.passwordRTGS.paramValue}">
+                            </p:password>
+
+                            <h:outputText value="Unit Buku Biaya Sanksi:"/>
+                            <p:inputText id="unitbuku" label="unitbuku" 
+                                         required="true" value="#{parameterController.unitBuku.paramValue}">
+                            </p:inputText>    
+
+                            <h:outputText value="Rekening Penerimaan Biaya Sanksi:"/>
+                            <p:inputText id="rekterima" label="rekterima" 
+                                         required="true" value="#{parameterController.rekeningTerima.paramValue}">
+                            </p:inputText>  
+
+                            <p:commandButton id="updBtn" value="Update" update="form" ajax="false"
+                                             action="#{parameterController.UpdateInterfaceSistem(event)}"
+                                             styleClass="customBtn" />                                            
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

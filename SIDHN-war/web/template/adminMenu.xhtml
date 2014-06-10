@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form>  
+        <p:menubar>  
+            <p:menuitem value="Home" action="pengumuman" ajax="false"  />  
+               
+            <p:submenu label="Admin">  
+                <p:submenu label="User">
+                    <p:menuitem value="Create User" action="addUser" ajax="false" />
+                    <p:menuitem value="View User" action="user" ajax="false" />
+                </p:submenu>
+                <p:menuitem value="Ubah Password" action="changePass" ajax="false" />  
+                <p:menuitem value="Setting Parameter" action="periodeDHIB" ajax="false" />  
+                <p:menuitem value="Log Aktifitas" action="syslog" ajax="false" />  
+                <p:submenu label="Pengumuman" >
+                    <p:menuitem value="Create Pengumuman" action="addPengumuman" ajax="false" />
+                    <p:menuitem value="View Pengumuman" action="pengumuman" ajax="false" />
+                </p:submenu>
+            </p:submenu>  
+
+            <f:facet name="options">  
+                <p:outputLabel value="Welcome, #{userid}" style="margin-right:10px"/>
+                <p:commandButton value="Logout" icon="ui-icon-extlink" ajax="false"
+                                 action="#{indexController.Logout(event)}" />  
+            </f:facet> 
+        </p:menubar>
+    </h:form>  
+
+</ui:composition>

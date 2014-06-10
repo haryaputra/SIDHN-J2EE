@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TDhnViewDlg" widgetVar="TDhnViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTDhnTitle}">
+            <h:form id="TDhnViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tDhnController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTDhnLabel_TDhnPK_noUrut}"/>
+                        <h:outputText value="#{tDhnController.selected.TDhnPK.noUrut}" title="#{bundle.ViewTDhnTitle_TDhnPK_noUrut}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_TDhnPK_nomorDh}"/>
+                        <h:outputText value="#{tDhnController.selected.TDhnPK.nomorDh}" title="#{bundle.ViewTDhnTitle_TDhnPK_nomorDh}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_nomorReferensi}"/>
+                        <h:outputText value="#{tDhnController.selected.nomorReferensi}" title="#{bundle.ViewTDhnTitle_nomorReferensi}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_rekening}"/>
+                        <h:outputText value="#{tDhnController.selected.rekening}" title="#{bundle.ViewTDhnTitle_rekening}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_sandiKantorBank}"/>
+                        <h:outputText value="#{tDhnController.selected.sandiKantorBank}" title="#{bundle.ViewTDhnTitle_sandiKantorBank}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_sandiInstitusiBank}"/>
+                        <h:outputText value="#{tDhnController.selected.sandiInstitusiBank}" title="#{bundle.ViewTDhnTitle_sandiInstitusiBank}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_namaBank}"/>
+                        <h:outputText value="#{tDhnController.selected.namaBank}" title="#{bundle.ViewTDhnTitle_namaBank}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_namaNasabah}"/>
+                        <h:outputText value="#{tDhnController.selected.namaNasabah}" title="#{bundle.ViewTDhnTitle_namaNasabah}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_gelarJenisusaha}"/>
+                        <h:outputText value="#{tDhnController.selected.gelarJenisusaha}" title="#{bundle.ViewTDhnTitle_gelarJenisusaha}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_sandiJenisNasabah}"/>
+                        <h:outputText value="#{tDhnController.selected.sandiJenisNasabah}" title="#{bundle.ViewTDhnTitle_sandiJenisNasabah}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_noIdentitas}"/>
+                        <h:outputText value="#{tDhnController.selected.noIdentitas}" title="#{bundle.ViewTDhnTitle_noIdentitas}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_npwp}"/>
+                        <h:outputText value="#{tDhnController.selected.npwp}" title="#{bundle.ViewTDhnTitle_npwp}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_tanggalLahir}"/>
+                        <h:outputText value="#{tDhnController.selected.tanggalLahir}" title="#{bundle.ViewTDhnTitle_tanggalLahir}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatJalan}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatJalan}" title="#{bundle.ViewTDhnTitle_alamatJalan}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatRt}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatRt}" title="#{bundle.ViewTDhnTitle_alamatRt}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatRw}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatRw}" title="#{bundle.ViewTDhnTitle_alamatRw}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatKota}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatKota}" title="#{bundle.ViewTDhnTitle_alamatKota}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatPropinsi}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatPropinsi}" title="#{bundle.ViewTDhnTitle_alamatPropinsi}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_alamatKodepos}"/>
+                        <h:outputText value="#{tDhnController.selected.alamatKodepos}" title="#{bundle.ViewTDhnTitle_alamatKodepos}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_keterangan}"/>
+                        <h:outputText value="#{tDhnController.selected.keterangan}" title="#{bundle.ViewTDhnTitle_keterangan}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_expiredDh}"/>
+                        <h:outputText value="#{tDhnController.selected.expiredDh}" title="#{bundle.ViewTDhnTitle_expiredDh}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_flagStatus}"/>
+                        <h:outputText value="#{tDhnController.selected.flagStatus}" title="#{bundle.ViewTDhnTitle_flagStatus}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_createdDate}"/>
+                        <h:outputText value="#{tDhnController.selected.createdDate}" title="#{bundle.ViewTDhnTitle_createdDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_createdBy}"/>
+                        <h:outputText value="#{tDhnController.selected.createdBy}" title="#{bundle.ViewTDhnTitle_createdBy}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_lastUpdated}"/>
+                        <h:outputText value="#{tDhnController.selected.lastUpdated}" title="#{bundle.ViewTDhnTitle_lastUpdated}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_updatedBy}"/>
+                        <h:outputText value="#{tDhnController.selected.updatedBy}" title="#{bundle.ViewTDhnTitle_updatedBy}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_cancelDate}"/>
+                        <h:outputText value="#{tDhnController.selected.cancelDate}" title="#{bundle.ViewTDhnTitle_cancelDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_cancelBy}"/>
+                        <h:outputText value="#{tDhnController.selected.cancelBy}" title="#{bundle.ViewTDhnTitle_cancelBy}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_flagAccess}"/>
+                        <h:outputText value="#{tDhnController.selected.flagAccess}" title="#{bundle.ViewTDhnTitle_flagAccess}"/>
+                        <h:outputText value="#{bundle.ViewTDhnLabel_dhibId}"/>
+                        <h:outputText value="#{tDhnController.selected.dhibId}" title="#{bundle.ViewTDhnTitle_dhibId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TDhnViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

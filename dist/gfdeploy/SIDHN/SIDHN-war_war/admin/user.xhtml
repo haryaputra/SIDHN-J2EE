@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />
+                <h:form prependId="false" id="form">  
+
+                    <p:dataTable id="dataTable" var="user" value="#{userController.users}"  
+                                 paginator="#{userController.exceedMaxItem}" rows="15"  paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
+                                 {RowsPerPageDropdown}" rowKey="#{user.userId}" 
+                                 selection="#{userController.selectedUser}">  
+                        <f:facet name="header">  
+                            Daftar User
+                        </f:facet> 
+                        <p:ajax event="rowDblselect" listener="#{userController.onRowSelect}"   
+                                update=":form:display" oncomplete="userDialog.show()" />
+                        <p:column selectionMode="multiple" style="width:2%" />
+                        <p:column filterBy="#{user.sandiBank.namaSingkat} #{user.sandiKliring.sandiKantorBank}"
+                                  filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="Nama Bank" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.sandiBank.namaSingkat} (#{user.sandiKliring.sandiKantorBank})" />  
+                        </p:column>  
+
+                        <p:column filterBy="#{user.userId}" filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="User Id" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.userId}" />  
+                        </p:column>  
+
+                        <p:column filterBy="#{user.fullName}" filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="Nama" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.fullName}" />  
+                        </p:column>  
+
+                        <p:column filterBy="#{user.statusAktif.statusDesc}" filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="Status" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.statusAktif.statusDesc}" />  
+                        </p:column>  
+
+                        <p:column filterBy="#{user.roleId.roleName}" filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="Level" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.roleId.roleName}" />  
+                        </p:column> 
+
+                        <p:column filterBy="#{user.expiredDate}" filterMatchMode="contains">  
+                            <f:facet name="header">  
+                                <h:outputText value="Expired Date" />  
+                            </f:facet>  
+                            <h:outputText value="#{user.expiredDate}" >
+                                <f:convertDateTime pattern="dd-MMM-yyyy" />
+                            </h:outputText>
+                        </p:column>                         
+                    </p:dataTable>  
+
+                    <p:dialog header="Detail User" widgetVar="userDialog"  width="60%" modal="true"
+                              showEffect="explode" hideEffect="explode">                           
+                        <h:panelGrid id="display" columns="2" cellpadding="4">  
+                            <h:outputText value="Username:"/>
+                            <p:inputText id="Username" label="Username" 
+                                         required="true" value="#{userController.viewedUser.userId}"
+                                         disabled="true">
+                                <f:validateLength maximum="12" />
+                            </p:inputText>
+
+                            <h:outputText value="Nama Lengkap:"/>
+                            <p:inputText id="namaLengkap" label="namaLengkap"
+                                         required="true" value="#{userController.viewedUser.fullName}">
+                                <f:validateLength maximum="20" />
+                            </p:inputText>
+
+                            <h:outputText value="Deskripsi:"/>
+                            <p:inputText id="deskripsi" label="deskripsi"
+                                         required="false" value="#{userController.viewedUser.deskripsi}">
+                                <f:validateLength maximum="30" />
+                            </p:inputText>
+
+                            <h:outputText value="User Role:"/>
+                            <p:selectOneMenu id="userRole" label="userRole"
+                                             required="true" value="#{userController.userRole}">
+                                <f:selectItem itemLabel="Select User Role" itemValue="" />
+                                <f:selectItems value="#{userController.allUserRoles}" var="ur"
+                                               itemLabel="#{ur.roleName}" itemValue="#{ur.roleId}" />
+                                <p:ajax update="namaInstitusi"  
+                                        listener="#{userController.getRelatedInstitusiBank}" />
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Akses List:"/>
+                            <p:selectOneMenu id="aksesLits" label="aksesList" value="#{userController.viewedUser.accessType}">   
+                                <f:selectItem itemLabel="Send View" itemValue='SV' />  
+                                <f:selectItem itemLabel="View Only" itemValue='VO' />  
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Nama Institusi:"/>
+                            <p:selectOneMenu id="namaInstitusi" label="namaInstitusi"
+                                             required="true" value="#{userController.namaInstitusi}" >
+                                <f:selectItem itemLabel="Select Institusi" itemValue="#{userController.namaInstitusi}" />
+                                <f:selectItems value="#{userController.relatedBanks}" var="rb"
+                                               itemLabel="#{rb.sandiInstitusiBank} - #{rb.namaSingkat}" itemValue="#{rb.sandiInstitusiBank}"  />
+                                <p:ajax update="kantorBank"  
+                                        listener="#{userController.getRelatedKantorBank}" />
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Kantor Bank:"/>
+                            <p:selectOneMenu id="kantorBank" label="kantorBank"
+                                             required="true" value="#{userController.kantorBank}" >
+                                <f:selectItem itemLabel="Select  Kantor Bank" itemValue="#{userController.kantorBank}" />
+                                <f:selectItems value="#{userController.relatedKantorBanks}" var="rkb"
+                                               itemLabel="#{rkb.sandiKantorBank} - #{rkb.namaKantor}" itemValue="#{rkb.sandiKantorBank}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid> 
+                        <h:panelGrid columns="4">
+                            <p:commandButton value="Cancel" type="button" onclick="userDialog.hide()" />
+                            <p:commandButton value="Locked/Unlocked" />
+                            <p:commandButton value="Generate New Password" /> 
+                            <p:commandButton value="Save" /> 
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>   
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

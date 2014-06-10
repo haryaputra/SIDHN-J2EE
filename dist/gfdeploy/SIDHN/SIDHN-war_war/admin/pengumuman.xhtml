@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />            
+                <h:form id="form">                       
+                    <p:dataTable id="dataTable" var="peng" value="#{pengumumanController.pengumumans}"  
+                                 paginator="#{pengumumanController.exceedMaxItem}" rows="15"  paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
+                                 {RowsPerPageDropdown}"
+                                 rowKey="#{peng.pengumumanId}"
+                                 selection="#{pengumumanController.selectedPengumuman}">                          
+
+                        <f:facet name="header">  
+                            Daftar Pengumuman
+                        </f:facet>                        
+
+                        <p:ajax event="rowSelect" listener="#{pengumumanController.onRowSelect}"   
+                                update=":form:display" oncomplete="pengDialog.show()" />  
+                        <p:ajax event="rowSelectCheckbox" listener="#{pengumumanController.onRowSelectCheckbox}" />
+                        <p:ajax event="rowUnselectCheckbox" listener="#{pengumumanController.onRowUnselectCheckbox}" />
+                        <p:ajax event="toggleSelect" listener="#{pengumumanController.onToggleCheckbox}" />
+                        <p:column selectionMode="multiple" style="width:2%" />
+
+                        <p:column headerText="Tanggal">                            
+                            #{peng.createdDate}  
+                        </p:column>  
+
+                        <p:column headerText="Judul">  
+                            #{peng.shortJudul}  
+                        </p:column>  
+
+                        <p:column headerText="Isi">  
+                            #{peng.shortIsi}          
+                        </p:column>  
+
+                        <p:column headerText="Subscriber">  
+                            #{peng.createdBy}
+                        </p:column>  
+                    </p:dataTable>
+                    <p:panelGrid columns="1" styleClass="noBorders">
+                        <p:commandButton id="multiDelButton" value="Delete" onclick="confirmation.show();" type="button" /> 
+
+                        <p:confirmDialog  message="Are you sure?" header="Confirmation" severity="alert" widgetVar="confirmation">
+                            <p:commandButton value="Yes" update="dataTable" oncomplete="confirmation.hide()" process="@this"
+                                             actionListener="#{pengumumanController.Delete(event)}" />
+                            <p:commandButton value="No" onclick="confirmation.hide();" type="button" />
+                        </p:confirmDialog>
+                    </p:panelGrid>
+                    <p:dialog header="Detail Pengumuman" widgetVar="pengDialog"  width="60%" modal="true"
+                              showEffect="explode" hideEffect="explode">                           
+                        <h:panelGrid id="display" columns="2" cellpadding="4">  
+                            <h:outputText value="Tanggal:" />  
+                            <h:outputText value="#{pengumumanController.viewedPengumuman.createdDate}" />  
+
+                            <h:outputText value="Judul:" />  
+                            <h:outputText value="#{pengumumanController.viewedPengumuman.judul}" />  
+
+                            <h:outputText value="Isi:" />  
+                            <h:outputText value="#{pengumumanController.viewedPengumuman.isi}" />  
+
+                            <h:outputText value="Subscriber:" />  
+                            <h:outputText value="#{pengumumanController.viewedPengumuman.createdBy}" />  
+                        </h:panelGrid> 
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

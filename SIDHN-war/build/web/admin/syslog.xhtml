@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">              
+
+            <ui:define name="content">
+                <ui:include src="./../template/adminMenu.xhtml" />  
+
+                <p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()"/>  
+
+                <p:dialog modal="true" widgetVar="statusDialog" header="Please wait" resizable="false"   
+                          draggable="false" closable="false">  
+                    <p:graphicImage value="/resources/img/gif-load.gif" />  
+                </p:dialog>  
+
+                <h:form id="form">                       
+                    <p:dataTable id="dataTable" var="sys"  value="#{systemLogController.getAllSysLogByDay(event)}"
+                                 paginator="true" rows="15"  paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} 
+                                 {RowsPerPageDropdown}"
+                                 rowKey="#{sys.logId}" selection="#{systemLogController.selectedSysLog}"
+                                 selectionMode="single"
+                                 filteredValue="#{systemLogController.filteredsyslogs}">                          
+
+                        <f:facet name="header">  
+                            <p:outputPanel>    
+                                <h:outputText value=" Select Date: "/>  
+                                <p:calendar value="#{systemLogController.syslog.waktu}" id="popupButtonCal" navigator="true">
+                                    <p:ajax event="dateSelect" listener="#{systemLogController.getAllSysLogByDay(event)}" update="dataTable" />
+                                </p:calendar>                            
+                            </p:outputPanel>   	
+                        </f:facet>                        
+
+                        <p:ajax event="rowSelect" listener="#{systemLogController.onRowSelect}"   
+                                update=":form:display" oncomplete="actDialog.show()" />  
+
+                        <p:column headerText="UserID" style="width: 10%" filterBy="#{sys.userId}"
+                                  filterMatchMode="contains" >                            
+                            #{sys.userId}  
+                        </p:column>  
+
+                        <p:column headerText="TimeStamp" style="width: 20%" filterBy="#{sys.waktu}" 
+                                  filterMatchMode="contains" >  
+                            <h:outputText value="#{sys.waktu}" >
+                                <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>  
+
+                        <p:column headerText="Activity" style="width: 55%" filterBy="#{sys.activity}"
+                                  filterMatchMode="contains" >  
+                            #{sys.shortActivity}          
+                        </p:column>  
+
+                        <p:column headerText="Host" style="width: 15%" filterBy="#{sys.remoteHost}"
+                                  filterMatchMode="contains" >  
+                            #{sys.remoteHost}
+                        </p:column>  
+                    </p:dataTable>
+
+                    <p:dialog header="Detail Activity" widgetVar="actDialog"  width="60%" modal="true"
+                              showEffect="explode" hideEffect="explode">                           
+                        <h:panelGrid id="display" columns="2" cellpadding="4">  
+                            <h:outputText value="UserID:" />  
+                            <h:outputText value="#{systemLogController.selectedSysLog.userId}" />  
+
+                            <h:outputText value="TimeStamp:" />  
+                            <h:outputText value="#{systemLogController.selectedSysLog.waktu}" >
+                                <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss" />
+                            </h:outputText>
+
+                            <h:outputText value="Activity:" />  
+                            <h:outputText value="#{systemLogController.selectedSysLog.activity}" />  
+
+                            <h:outputText value="Host:" />  
+                            <h:outputText value="#{systemLogController.selectedSysLog.remoteHost}" />  
+                        </h:panelGrid>  
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
